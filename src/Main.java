@@ -12,16 +12,16 @@ public class Main {
         while (!queue.isEmpty()) {
             Person visitor = queue.poll();
             visitor.spendTicket();
-            System.out.println(visitor.getName() + " " + visitor.getSurname() + " прокатился/-лась на аттракционе. Осталось билетов" + visitor.getTicket() + " шт.");
+            System.out.println(visitor.getName() + " " + visitor.getSurname() + " прокатился/-лась на аттракционе. Осталось билетов: " + visitor.getTicket() + " шт.");
             if (visitor.getTicket() > 0) {
                 queue.offer(visitor);
             }
         }
-
     }
 
-    public static <Pesron> List<Person> generateClients() {
+    public static List<Person> generateClients() {
         int COUNT = 5;
+
         Person visitor1 = new Person("Татьяна", "Иванова", 3);
         Person visitor2 = new Person("Ирина", "Бузова", 2);
         Person visitor3 = new Person("Анастасия", "Сахарова", 4);
@@ -33,43 +33,32 @@ public class Main {
         Person visitor9 = new Person("Дарья", "Бирюкова", 3);
         Person visitor10 = new Person("Инакентий", "Доров", 3);
 
-        List<Pesron> visitorsArray = new ArrayList<>() {
+        List<Person> visitorsArray = new ArrayList<>() {
             {
-                add((Pesron) visitor1);
-                add((Pesron) visitor2);
-                add((Pesron) visitor3);
-                add((Pesron) visitor4);
-                add((Pesron) visitor5);
-                add((Pesron) visitor6);
-                add((Pesron) visitor7);
-                add((Pesron) visitor8);
-                add((Pesron) visitor9);
-                add((Pesron) visitor10);
+                add(visitor1);
+                add(visitor2);
+                add(visitor3);
+                add(visitor4);
+                add(visitor5);
+                add(visitor6);
+                add(visitor7);
+                add(visitor8);
+                add(visitor9);
+                add(visitor10);
             }
         };
 
-        List<Pesron> visitors = new LinkedList<>();
+        List<Person> visitorsRandom = new ArrayList<>();
 
         Random random = new Random();
-        int i = 0;
-        while(i < COUNT) {
+
+        for (int i = 0; i < COUNT; i++) {
             int randomInt = random.nextInt(visitorsArray.size());
-            Person element = (Person) visitorsArray.get(randomInt);
-            ((LinkedList<Pesron>) visitors).add((Pesron) element);
+            Person element = visitorsArray.get(randomInt);
+            visitorsRandom.add(element);
             visitorsArray.remove(element);
-            i++;
         }
 
-        return (List<Person>) visitors;
+        return visitorsRandom;
     }
 }
-
-
-
- //      Далее, в main, создайте очередь на аттракцион и заполните её людьми из списка,
- //      который вам вернёт метод generateClients().
- //      Теперь заведите бесконечный цикл, который делает итерации пока очередь не пуста.
- //      На каждой итерации вытаскивается из очереди следующий клиент,
- //      выводится на экран сообщения вида Алексей Нетоложко прокатился на аттракционе.
- //     При этом у клиента уменьшается количество билетов на 1 и, если оно не стало нулевым,
-    //     он вставляется обратно в очередь в её конец.
